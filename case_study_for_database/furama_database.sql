@@ -1,5 +1,7 @@
+drop database if exists furama_database;
 create database furama_database;
 
+use furama_database;
 create table vi_tri(
 	ma_vi_tri int primary key,
     ten_vi_tri varchar(45)
