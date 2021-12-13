@@ -41,12 +41,19 @@ from customer c join `order` o on c.customer_id = o.customer_id
 join order_detail od on o.order_id = od.order_id join product p on od.product_id = p.product_id;
 
 -- Hiển thị tên những khách hàng không mua bất kỳ một sản phẩm nào
--- caau truy vaans con, not in, not exists	
+select *
+from customer c left join `order` o on c.customer_id = o.customer_id
+group by c.customer_id
+having count(order_id) = 0;
+
 
 
 -- Hiển thị mã hóa đơn, ngày bán và giá tiền của từng hóa đơn
 -- (giá một hóa đơn được tính bằng tổng giá bán của từng loại mặt hàng xuất hiện trong hóa đơn. 
 -- Giá bán của từng loại được tính = odQTY*pPrice)
 
-select o.order_id, o.order_date , od.total_price = od.order_detail_quantity * p.product_price
+select o.order_id, o.order_date,
+sum(ifnull(od.order_detail_quantity,0)*ifnull(p.product_price,0)) 'tong_tien'
+--  od.total_price = od.order_detail_quantity * p.product_price
 from `order` o join order_detail od on o.order_id = od.order_id join product p on od.product_id = p.product_id
+group by order_id
