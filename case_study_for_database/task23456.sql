@@ -57,8 +57,7 @@ select dv.ma_dich_vu 'mã dịch vụ', dv.ten_dich_vu 'tên dịch vụ', dv.di
 	dv.chi_phi_thue 'chi phí thuê', ldv.ten_loai_dich_vu 'tên loại dịch vụ'
 from dich_vu dv join loai_dich_vu ldv on dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu
 	join hop_dong hd on dv.ma_dich_vu = hd.ma_dich_vu
-where ngay_lam_hop_dong like '2020-%' and
-	dv.ma_dich_vu not in (
+where dv.ma_dich_vu not in (
 		select dv.ma_dich_vu
 		from dich_vu dv join loai_dich_vu ldv on dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu
 			join hop_dong hd on dv.ma_dich_vu = hd.ma_dich_vu
@@ -74,16 +73,84 @@ Học viên sử dụng theo 3 cách khác nhau để thực hiện yêu cầu t
 -- cách 1:
 select ho_ten
 from khach_hang
-group by ho_ten
+group by ho_ten;
 
 -- cách 2: 
 select ho_ten
 from khach_hang
 union
 select ho_ten
-from khach_hang
+from khach_hang;
+
+/* 9. Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng
+trong năm 2021 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng. 
+*/
+select month(ngay_lam_hop_dong) 'tháng', count(*) 'số khách đặt phòng'
+from hop_dong
+where ngay_lam_hop_dong like '2021-%'
+group by month(ngay_lam_hop_dong)
+order by month(ngay_lam_hop_dong);
 
 
+/* 10. Hiển thị thông tin tương ứng với từng hợp đồng thì đã sử dụng bao nhiêu dịch vụ đi kèm. 
+Kết quả hiển thị bao gồm ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, 
+so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem). 
+*/
+ select  hd.ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, sum(so_luong) 'số lượng dịch vụ đi kèm'	
+ from hop_dong hd
+	join hop_dong_chi_tiet hdct on hd.ma_hop_dong = hdct.ma_hop_dong
+group by hd.ma_hop_dong
+order by hd.ma_hop_dong;
+
+/* 11. Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách hàng có
+ ten_loai_khach là “Diamond” và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
+*/
+select dvdk.*
+from khach_hang kh 
+	join loai_khach lk on kh.ma_loai_khach = lk.ma_loai_khach
+    join hop_dong hd on kh.ma_khach_hang = hd.ma_khach_hang
+    join hop_dong_chi_tiet hdct on hd.ma_hop_dong = hdct.ma_hop_dong
+    join dich_vu_di_kem dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+where lk.ten_loai_khach = 'Diamond' and (kh.dia_chi like '%Vinh' or kh.dia_chi like '% Quảng Ngãi');
+
+/* 12. Hiển thị thông tin ma_hop_dong, ho_ten (nhân viên), ho_ten (khách hàng), so_dien_thoai (khách hàng), ten_dich_vu,
+so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem), tien_dat_coc của tất cả các dịch vụ
+đã từng được khách hàng đặt vào 3 tháng cuối năm 2020 nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2021. */
+select hd.*, nv.ho_ten, kh.ho_ten, kh.so_dien_thoai, dv.ten_dich_vu, sum(hdct.so_luong) 'số lượng dịch vụ đi kèm'
+from hop_dong hd 
+	join nhan_vien nv on hd.ma_nhan_vien = nv.ma_nhan_vien
+    join khach_hang kh on hd.ma_khach_hang = kh.ma_khach_hang
+    join dich_vu dv on hd.ma_dich_vu = dv.ma_dich_vu
+    join hop_dong_chi_tiet hdct on hd.ma_hop_dong = hdct.ma_hop_dong 
+    join dich_vu_di_kem dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+where (month(ngay_lam_hop_dong) in (10,11,12) and year(ngay_lam_hop_dong) = 2020)
+	and hd.ma_dich_vu not in (
+		select ma_dich_vu
+        from hop_dong
+        where month(ngay_lam_hop_dong) in (1,2,3,4,5,6) and year(ngay_lam_hop_dong) = 2021
+        )
+group by dv.ma_dich_vu;
+
+/* 13. Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. 
+(Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+*/
+select dvdk.*, sum(hdct.so_luong)
+from hop_dong_chi_tiet hdct
+    join dich_vu_di_kem dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+group by hdct.ma_dich_vu_di_kem
+having sum(hdct.so_luong) >= (
+	select sum(hdct.so_luong)
+    from hop_dong_chi_tiet hdct
+    join dich_vu_di_kem dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+    group by hdct.ma_dich_vu_di_kem
+    order by sum(hdct.so_luong) desc
+    limit 1
+    );
 
 
- 
+/*Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất.
+Thông tin hiển thị bao gồm ma_hop_dong, ten_loai_dich_vu,
+ten_dich_vu_di_kem, so_lan_su_dung (được tính dựa trên việc count các ma_dich_vu_di_kem). 
+*/
+
+

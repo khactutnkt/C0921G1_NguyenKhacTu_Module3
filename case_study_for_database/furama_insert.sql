@@ -110,3 +110,6 @@ value
 (7,1,2,2),
 (8,12,2,2);
 
+update dich_vu
+set chi_phi_thue = 1000000
+where ten_dich_vu = "Villa Beach Front";

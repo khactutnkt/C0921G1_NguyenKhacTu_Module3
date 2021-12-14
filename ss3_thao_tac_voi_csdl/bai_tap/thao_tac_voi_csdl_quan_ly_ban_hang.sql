@@ -54,6 +54,5 @@ having count(order_id) = 0;
 
 select o.order_id, o.order_date,
 sum(ifnull(od.order_detail_quantity,0)*ifnull(p.product_price,0)) 'tong_tien'
---  od.total_price = od.order_detail_quantity * p.product_price
 from `order` o join order_detail od on o.order_id = od.order_id join product p on od.product_id = p.product_id
 group by order_id
