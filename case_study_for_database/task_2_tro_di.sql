@@ -112,7 +112,7 @@ order by hd.ma_hop_dong;
  ten_loai_khach là “Diamond” và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
 */
 select dvdk.*
-from khach_hang kh 
+from khach_hang kh
 	join loai_khach lk on kh.ma_loai_khach = lk.ma_loai_khach
     join hop_dong hd on kh.ma_khach_hang = hd.ma_khach_hang
     join hop_dong_chi_tiet hdct on hd.ma_hop_dong = hdct.ma_hop_dong
@@ -123,7 +123,7 @@ where lk.ten_loai_khach = 'Diamond' and (kh.dia_chi like '%Vinh' or kh.dia_chi l
 so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem), tien_dat_coc của tất cả các dịch vụ
 đã từng được khách hàng đặt vào 3 tháng cuối năm 2020 nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2021. */
 select hd.*, nv.ho_ten, kh.ho_ten, kh.so_dien_thoai, dv.ten_dich_vu, sum(hdct.so_luong) 'số lượng dịch vụ đi kèm'
-from hop_dong hd 
+from hop_dong hd
 	join nhan_vien nv on hd.ma_nhan_vien = nv.ma_nhan_vien
     join khach_hang kh on hd.ma_khach_hang = kh.ma_khach_hang
     join dich_vu dv on hd.ma_dich_vu = dv.ma_dich_vu
@@ -241,6 +241,8 @@ where ma_dich_vu_di_kem in (
 		select dvdk.ma_dich_vu_di_kem
         from dich_vu_di_kem dvdk 
 			join hop_dong_chi_tiet hdct on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+            join hop_dong hd on hdct.ma_hop_dong = hd.ma_hop_dong
+		where year(ngay_lam_hop_dong) = 2020
         group by dvdk.ma_dich_vu_di_kem
         having sum(so_luong) > 10
     )
