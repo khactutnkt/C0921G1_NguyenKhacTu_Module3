@@ -132,8 +132,7 @@ from hop_dong hd
     join dich_vu dv on hd.ma_dich_vu = dv.ma_dich_vu
     join hop_dong_chi_tiet hdct on hd.ma_hop_dong = hdct.ma_hop_dong 
     join dich_vu_di_kem dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
-where ((month(ngay_lam_hop_dong) in (10,11,12) and year(ngay_lam_hop_dong) = 2020)) or
-	((month(ngay_lam_hop_dong) in (1,2,3,4,5,6) and year(ngay_lam_hop_dong) = 2021)) and 
+where (month(ngay_lam_hop_dong) in (10,11,12) and year(ngay_lam_hop_dong) = 2020) and 
 	hd.ma_dich_vu not in (
 		select ma_dich_vu
         from hop_dong
@@ -227,11 +226,10 @@ from khach_hang
 where ma_khach_hang in (
 	select *
     from (
-		select kh.ma_khach_hang
-		from khach_hang kh 
-			join hop_dong hd on kh.ma_khach_hang = hd.ma_hop_dong
+		select ma_khach_hang
+		from hop_dong
 		where year(ngay_lam_hop_dong) < 2021
-		group by kh.ma_khach_hang
+		group by ma_khach_hang
     )
     tdlTmp
 );
@@ -245,7 +243,7 @@ where ma_dich_vu_di_kem in (
 		select dvdk.ma_dich_vu_di_kem
         from dich_vu_di_kem dvdk 
 			join hop_dong_chi_tiet hdct on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
-            join hop_dong hd on hdc4t.ma_hop_dong = hd.ma_hop_dong
+            join hop_dong hd on hdct.ma_hop_dong = hd.ma_hop_dong
 		where year(ngay_lam_hop_dong) = 2020
         group by dvdk.ma_dich_vu_di_kem
         having sum(so_luong) > 10
@@ -256,10 +254,10 @@ where ma_dich_vu_di_kem in (
 /* 20. Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, thông tin hiển thị bao gồm 
 id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi. 
 */
-select ma_nhan_vien id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi
+select ma_nhan_vien id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi, 'nhân viên' loai
 from nhan_vien
 union all
-select ma_khach_hang id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi
+select ma_khach_hang id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi, 'khách hàng' loai
 from khach_hang;
 
 /* 21. Tạo khung nhìn có tên là v_nhan_vien để lấy được thông tin của tất cả
