@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        .col-1 {width: 8.33%;}
+        .col-2 {width: 16.66%;}
+        .col-3 {width: 25%;}
+        .col-4 {width: 33.33%;}
+        .col-5 {width: 41.66%;}
+        .col-6 {width: 50%;}
+        .col-7 {width: 58.33%;}
+        .col-8 {width: 66.66%;}
+        .col-9 {width: 75%;}
+        .col-10 {width: 83.33%;}
+        .col-11 {width: 91.66%;}
+        .col-12 {width: 100%;}
+
+        [class*="col-"]{
+            float: left;
+            padding: 5px;
+        }
+
+        .row::after{
+            clear: both;
+            display: block;
+            content: "";
+        }
+        body{
+            font-family: Arial, serif;
+        }
+        .header{
+            font-weight: bold;
+            font-size: 30pt;
+            background-color: gainsboro;
+        }
+        .cartoon{
+            background-color: crimson;
+            color: white;
+        }
+        .menu{
+            background-color: gainsboro;
+            text-align: center;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .contents{
+            color: darkslategrey;
+            text-align: justify;
+            padding: 0 10px;
+        }
+        .footer{
+            font-weight: bold;
+            text-align: center;
+            background-color: gainsboro;
+            margin-top: 8px;
+        }
+        .menu1{
+            background-color: gainsboro;
+            margin-top: 8px;
+        }
+        a{
+            text-decoration: none;
+            color: brown;
+            font-weight: bold;
+        }
+        a:hover{
+            background-color: lavenderblush;
+            color: crimson;
+        }
+
+        @media only screen and (max-width: 768px){
+            [class*=col-] {
+            width: 100%;
+            }
+            .cartoon {
+                background-color: cadetblue;
+            }
+        }
+        .big-film-title{
+            padding: 20px 0;
+        }
+        #summary{
+            font-weight: bold;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-12 header">
+            Phim <span class="cartoon">Hoạt Hình</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 menu">
+            Phim hoạt hình | Phim hoạt hình yêu thích | nhân vật hoạt hình | Góp ý
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4 menu1">
+            <div class="row">
+                <div class="col-12">
+                    <iframe width="100%" height="240" src="https://www.youtube.com/embed/BEQhQRT-C6E" title="YouTube video player"
+                            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    <div>
+                        <a href="https://www.youtube.com/watch?v=BEQhQRT-C6E" target="_blank">Doraemon Tiếng Việt - Ngôi Nhà Thể Thao Bắt Buộc</a>
+                    </div>
+                    <div>
+                        <a href="https://www.youtube.com/channel/UC5ezaYrzZpyItPSRG27MLpg" target="_blank">POPS Kids</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <iframe width="100%" height="240" src="https://www.youtube.com/embed/2k5wEBniEng" title="YouTube video player"
+                            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    <div>
+                        <a href="https://www.youtube.com/watch?v=2k5wEBniEng" target="_blank">Doraemon Tiếng Việt - Miếng Cá Ngừ Sống Của Nhà Nobita</a>
+                    </div>
+                    <div>
+                        <a href="https://www.youtube.com/channel/UC5ezaYrzZpyItPSRG27MLpg" target="_blank">POPS Kids</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <iframe width="100%" height="240" src="https://www.youtube.com/embed/Y183Bawp2yI" title="YouTube video player"
+                            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    <div>
+                        <a href="https://www.youtube.com/watch?v=Y183Bawp2yI" target="_blank">Pokémon Tập 1 - Pikachu Ra Đời - Hoạt Hình Pokémon Tiếng Việt</a>
+                    </div>
+                    <div>
+                        <a href="https://www.youtube.com/channel/UC5ezaYrzZpyItPSRG27MLpg" target="_blank">POPS Kids</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-12">
+                    <iframe width="100%" height="480" src="https://www.youtube.com/embed/Xk7GKMV3Ipg" title="YouTube video player"
+                            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    <div class="big-film-title">
+                        <a href="https://www.youtube.com/watch?v=Xk7GKMV3Ipg" target="_blank">Doraemon Tập 276 - Khăn Trải Bàn Ẩm Thực</a>
+                    </div>
+                    <div>
+                        <a href="https://www.youtube.com/channel/UC5ezaYrzZpyItPSRG27MLpg" target="_blank">POPS Kids</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row contents">
+                <div>
+                    <p id="summary">Giới thiệu:</p>
+                    <p>Doraemon được mua bản quyền và được cập nhật phát sóng trên ứng dụng giải trí POPS Kids & kênh YouTube POPS Kids.
+                        Đây là bộ phim chuyển thể từ truyện tranh hấp dẫn nhất Nhật Bản: Doraemon của tác giả Fujiko Fujio sáng tác từ năm 1969.</p>
+
+                    <p>Bộ truyện kể về một chú mèo máy tên Doraemon đến từ thế kỉ 22 để giúp một cậu bé lớp 5 hậu đậu tên là Nobi Nobita.
+                        Sewashi (Nobito), cháu ba đời của Nobita gửi Doraemon về quá khứ nhằm giúp đỡ ông mình, qua đó cải thiện được hoàn cảnh
+                        của con cháu Nobita sau này.</p>
+
+                    <p>Các tập phim Doraemon thường xoay quanh những rắc rối hay xảy ra với cậu bé Nobita. Cốt truyện thường gặp nhất là Nobita
+                        trở về nhà khóc lóc với Doraemon vì những rắc rối mà cậu gặp phải ở trường học hoặc với bạn bè. Sau khi bị cậu van nài
+                        hoặc thúc giục, Doraemon sẽ lấy ra một bảo bối trong chiếc túi thần kỳ trước bụng để giúp Nobita giải quyết rắc rối của mình.</p>
+
+                    <p>Nhưng Nobita sẽ lại thường đi quá xa so với dự định ban đầu của Doraemon. Cậu thường lấy sự ưu việt của bảo bối để trêu
+                        ghẹo mọi người nên cuối cùng bị phản tác dụng, bị bảo bối gây phiền phức. Có đôi khi những người bạn của Nobita,
+                        thường là Suneo hoặc Jaian lại lấy trộm những bảo bối và sử dụng chúng không đúng mục đích. Kết thúc mỗi câu chuyện,
+                        những ai sử dụng sai mục đích bảo bối sẽ phải chịu hậu quả do mình gây ra, từ đó khán giả sẽ rút ra được bài học cho riêng mình.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row footer">
+        <div class="col-12 footer">
+            @2021 - Thiết kế web bởi NguyenKhacTu
+        </div>
+    </div>
+</body>
+</html>
