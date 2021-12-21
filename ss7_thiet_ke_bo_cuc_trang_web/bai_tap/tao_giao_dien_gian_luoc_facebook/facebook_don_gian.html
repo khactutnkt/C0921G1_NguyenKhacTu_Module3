@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .col-1 {width: 8.33%;}
+        .col-2 {width: 16.66%;}
+        .col-3 {width: 25%;}
+        .col-4 {width: 33.33%;}
+        .col-5 {width: 41.66%;}
+        .col-6 {width: 50%;}
+        .col-7 {width: 58.33%;}
+        .col-8 {width: 66.66%;}
+        .col-9 {width: 75%;}
+        .col-10 {width: 83.33%;}
+        .col-11 {width: 91.66%;}
+        .col-12 {width: 100%;}
+
+        [class*="col-"]{
+            float: left;
+            padding: 5px;
+        }
+
+        .row::after{
+            clear: both;
+            display: block;
+            content: "";
+        }
+        body{
+            font-family: Arial, serif;
+            background-color: #eff5f2;
+            font-size: 15pt;
+        }
+        .header{
+            /*background-color: #b5cefd;*/
+            /*position: fixed;*/
+        }
+        .logo{
+            width: 50%;
+        }
+        .text-box{
+            background-color: gainsboro;
+            border-radius: 20px;
+            padding: 10px;
+            text-align: center;
+        }
+        .menu li{
+            list-style: none;
+            width: 100%;
+            height: 30px;
+            padding: 10px 0;
+        }
+        #contact{
+            font-weight: bold;
+            padding: 0 35px;
+        }
+        .news-feed{
+            padding: 30px 100px;
+        }
+        .image-news-feed{
+            width: 100%;
+        }
+        .name{
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .time{
+            color: grey;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="row header">
+        <div class="col-3">
+            <div class="col-2">
+                <img src="fb.webp" width="100%" height="100%">
+            </div>
+            <div class="col-10 text-box">
+                Tìm kiếm trên Facebook
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="col-3 text-box">Trang chủ</div>
+            <div class="col-3 text-box">Nhóm</div>
+            <div class="col-3 text-box">Watch</div>
+            <div class="col-3 text-box">Trò chơi</div>
+        </div>
+        <div class="col-4 " >
+            <div class="col-6 text-box">Trang cá nhân</div>
+            <div class="col-2 ">
+                <img src="mess.jfif" class="logo">
+            </div>
+            <div class="col-2">
+                <img src="chuong.webp" class="logo">
+            </div>
+            <div class="col-2">
+                <img src="setting.jfif" class="logo">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="menu">
+                <ul>
+                    <li>Trang cá nhân</li>
+                    <li>Bạn bè</li>
+                    <li>Watch</li>
+                    <li>Nhóm</li>
+                    <li>Marketplace</li>
+                    <li>Chiến dịch gây quỹ</li>
+                    <li>Chơi game</li>
+                    <li>Đã lưu</li>
+                    <li>Facebook Pay</li>
+                    <li>Gần đây nhất</li>
+                    <li>Kỷ niệm</li>
+                    <li>Yêu thích</li>
+                    <li>Thời tiết</li>
+                    <li>Trang</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-6 news-feed">
+            <div class="text-box">Từ ơi, bạn đang nghĩ gì thế?</div>
+            <div>
+                <div class="name">Bích Phương</div>
+                <div class="time">4 giờ</div>
+                <div>
+                    <img src="bichphuong.jpg" class="image-news-feed">
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div id="contact">Người liên hệ</div>
+            <div class="menu">
+                <ul>
+                    <li>Nguyễn Huy</li>
+                    <li>Thu Hiền</li>
+                    <li>Hoàng Bá Sinh</li>
+                    <li>Nguyen Son Thai</li>
+                    <li>Năm</li>
+                    <li>Hau Hoang</li>
+                    <li>Nhung Trần</li>
+                    <li>Nguyễn Trinh</li>
+                    <li>Hà Văn Thắng</li>
+                    <li>Như Phú</li>
+                    <li>Như Phú</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
