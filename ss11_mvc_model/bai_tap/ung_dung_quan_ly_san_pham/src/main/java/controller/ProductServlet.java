@@ -18,6 +18,47 @@ public class ProductServlet extends HttpServlet {
 
     private IProductService iProductService = new ProductService();
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String actionUser = request.getParameter("actionUser");
+        if (actionUser == null) {
+            actionUser = "";
+        }
+        switch (actionUser) {
+            case "create":
+                createProduct(request, response);
+                break;
+            case "edit":
+                updateProduct(request, response);
+                break;
+            case "delete":
+                deleteProduct(request, response);
+                break;
+            default:
+                break;
+        }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String actionUser = request.getParameter("actionUser");
+        if (actionUser == null) {
+            actionUser = "";
+        }
+        switch (actionUser) {
+            case "create":
+                showCreateForm(request, response);
+                break;
+            case "edit":
+                showEditForm(request, response);
+                break;
+            case "delete":
+                showDeleteForm(request, response);
+                break;
+            default:
+                listProducts(request, response);
+                break;
+        }
+    }
+
     private void listProducts(HttpServletRequest request, HttpServletResponse response) {
         List<Product> productList = this.iProductService.findAll();
         request.setAttribute("productList", productList);
@@ -48,7 +89,7 @@ public class ProductServlet extends HttpServlet {
         Double price = Double.parseDouble(request.getParameter("price"));
         Integer quantity = Integer.parseInt(request.getParameter("quantity"));
         String country = request.getParameter("country");
-        int id = (int)(Math.random() * 10000);
+        int id = (int) (Math.random() * 10000);
 
         Product product = new Product(id, name, price, quantity, country);
         this.iProductService.save(product);
@@ -63,13 +104,13 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response){
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = this.iProductService.findById(id);
         RequestDispatcher dispatcher;
-        if (product == null){
+        if (product == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
-        }else {
+        } else {
             request.setAttribute("product", product);
             dispatcher = request.getRequestDispatcher("edit.jsp");
         }
@@ -82,26 +123,17 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response){
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) {
         Integer id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         Double price = Double.parseDouble(request.getParameter("price"));
         Integer quantity = Integer.parseInt(request.getParameter("quantity"));
         String country = request.getParameter("country");
-        Product product = this.iProductService.findById(id);
-        RequestDispatcher dispatcher;
-        if (product == null){
-            dispatcher = request.getRequestDispatcher("error-404.jsp");
-        }else {
-            product.setName(name);
-            product.setPrice(price);
-            product.setQuantity(quantity);
-            product.setCountry(country);
-            this.iProductService.update(id, product);
-            request.setAttribute("product", product);
-            request.setAttribute("message", "Product information was updated");
-            dispatcher = request.getRequestDispatcher("edit.jsp");
-        }
+
+        Product product = new Product(id, name, price, quantity, country);
+        this.iProductService.save(product);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
+        request.setAttribute("message", "Product information was updated");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -111,13 +143,13 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response){
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
         Integer id = Integer.parseInt(request.getParameter("id"));
         Product product = this.iProductService.findById(id);
         RequestDispatcher dispatcher;
-        if (product == null){
+        if (product == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
-        }else{
+        } else {
             request.setAttribute("product", product);
             dispatcher = request.getRequestDispatcher("delete.jsp");
         }
@@ -130,13 +162,13 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response){
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) {
         Integer id = Integer.parseInt(request.getParameter("id"));
         Product product = this.iProductService.findById(id);
         RequestDispatcher dispatcher;
-        if (product == null){
+        if (product == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
-        }else {
+        } else {
             this.iProductService.remove(id);
             try {
                 response.sendRedirect("/products");
@@ -146,44 +178,5 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String actionUser = request.getParameter("actionUser");
-        if (actionUser == null){
-            actionUser = "";
-        }
-        switch (actionUser){
-            case "create":
-                createProduct(request, response);
-                break;
-            case "edit":
-                updateProduct(request, response);
-                break;
-            case "delete":
-                deleteProduct(request, response);
-                break;
-            default:
-                break;
-        }
-    }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String actionUser = request.getParameter("actionUser");
-        if (actionUser == null){
-            actionUser = "";
-        }
-        switch (actionUser){
-            case "create":
-                showCreateForm(request, response);
-                break;
-            case "edit":
-                showEditForm(request, response);
-                break;
-            case "delete":
-                showDeleteForm(request, response);
-                break;
-            default:
-                listProducts(request, response);
-                break;
-        }
-    }
 }

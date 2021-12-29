@@ -38,7 +38,7 @@ public class UserDAO implements IUserDAO {
         return connection;
     }
 
-    public void insertUser(User user) throws SQLException {
+    public void insertUser(User user){
         System.out.println(INSERT_USERS_SQL);
         // try-with-resource statement will auto close the connection.
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
@@ -103,17 +103,19 @@ public class UserDAO implements IUserDAO {
         return users;
     }
 
-    public boolean deleteUser(int id) throws SQLException {
-        boolean rowDeleted;
+    public boolean deleteUser(int id) {
+        boolean rowDeleted = false;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL)) {
             statement.setInt(1, id);
             rowDeleted = statement.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return rowDeleted;
     }
 
-    public boolean updateUser(User user) throws SQLException {
-        boolean rowUpdated;
+    public boolean updateUser(User user) {
+        boolean rowUpdated = false;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL)) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
@@ -121,6 +123,8 @@ public class UserDAO implements IUserDAO {
             statement.setInt(4, user.getId());
 
             rowUpdated = statement.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return rowUpdated;
     }
