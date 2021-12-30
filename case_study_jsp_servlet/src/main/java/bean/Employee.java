@@ -3,9 +3,9 @@ package bean;
 import java.util.Date;
 
 public class Employee {
-    private String id;
+    private Integer id;
     private String name;
-    private Date birthday;
+    private String birthday;
     private String idCard;
     private Double salary;
     private String phone;
@@ -16,7 +16,7 @@ public class Employee {
 
     public Employee(){}
 
-    public Employee(String id, String name, Date birthday, String idCard, Double salary, String phone, String email, Integer positionId, Integer educationDegreeId, Integer divisionId) {
+    public Employee(Integer id, String name, String birthday, String idCard, Double salary, String phone, String email, Integer positionId, Integer educationDegreeId, Integer divisionId) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
@@ -29,11 +29,11 @@ public class Employee {
         this.divisionId = divisionId;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -45,11 +45,11 @@ public class Employee {
         this.name = name;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

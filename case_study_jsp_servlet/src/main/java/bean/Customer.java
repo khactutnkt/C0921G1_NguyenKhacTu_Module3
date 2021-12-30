@@ -1,13 +1,10 @@
 package bean;
 
-import java.sql.DatabaseMetaData;
-import java.sql.Date;
-
 public class Customer {
     private String id;
     private Integer typeId;
     private String name;
-    private Date birthday;
+    private String birthday;
     private byte gender;
     private String idCard;
     private String phone;
@@ -16,7 +13,7 @@ public class Customer {
 
     public Customer(){}
 
-    public Customer(String id, Integer typeId, String name, Date birthday, byte gender, String idCard, String phone, String email, String address) {
+    public Customer(String id, Integer typeId, String name, String birthday, byte gender, String idCard, String phone, String email, String address) {
         this.id = id;
         this.typeId = typeId;
         this.name = name;
@@ -52,11 +49,11 @@ public class Customer {
         this.name = name;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

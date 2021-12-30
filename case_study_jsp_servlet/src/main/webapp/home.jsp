@@ -1,54 +1,34 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: THIC PC
-  Date: 29/12/2021
-  Time: 15:47
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
+    <title>Furama</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <span class="float-end">Nguyen Van A</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8">
-                <ul class="nav nav-pills nav-fill">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Active</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Much longer nav link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-lg-4">
-
-            </div>
-        </div>
-
-    </div>
-
-
-
-
-
-
-
-
+<center>
+    <h1>Furama Management</h1>
+    <h2>
+        <a href="/furama?actionUser=createCustomer">Add New Customer</a>
+    </h2>
+    <h2>
+        <a href="/furama?actionUser=customer">Show Customer List</a>
+    </h2>
+    <h2>
+        <a href="/furama?actionUser=createService">Add New Service</a>
+    </h2>
+    <h2>
+        <a href="/furama?actionUser=createEmployee">Add New Employee</a>
+    </h2>
+    <h2>
+        <a href="/furama?actionUser=employee">Show Employee List</a>
+    </h2>
+    <h2>
+        <a href="/furama?actionUser=createContract">Add New Contract</a>
+    </h2>
+    <h2>
+        <a href="/users?actionUser=createContractDetail">Add New Contract Detail</a>
+    </h2>
+</center>
 </body>
 </html>

@@ -1,7 +1,7 @@
 package bean;
 
 public class Contract {
-    private String id;
+    private Integer id;
     private String startDay;
     private String endDay;
     private Double deposit;
@@ -12,7 +12,7 @@ public class Contract {
 
     public Contract(){}
 
-    public Contract(String id, String startDay, String endDay, Double deposit, Double totalMoney, String employeeId, String customerId, String serviceId) {
+    public Contract(Integer id, String startDay, String endDay, Double deposit, Double totalMoney, String employeeId, String customerId, String serviceId) {
         this.id = id;
         this.startDay = startDay;
         this.endDay = endDay;
@@ -23,11 +23,11 @@ public class Contract {
         this.serviceId = serviceId;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
